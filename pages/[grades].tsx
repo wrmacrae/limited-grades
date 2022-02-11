@@ -29,9 +29,11 @@ import { CardTableDictionary } from "lib/table";
 export const getStaticPaths = async () => {
   return {
     paths:[
-       { params: { grades: "Original" } },
-       { params: { grades: "Shifted" } },
-       { params: { grades: "Current" } },
+       { params: { grades: "Chord" } },
+       { params: { grades: "Ncaa" } },
+       { params: { grades: "Doubleexposure" } },
+       { params: { grades: "Squerp" } },
+       { params: { grades: "ElgraNorbe" } },
     ],
     fallback: false,
   };
@@ -42,7 +44,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       grades,
-      cards: await getCards(MagicSet.CRIMSON_VOW, grades),
+      cards: await getCards(MagicSet.NEON_DYNASTY, grades),
       lastUpdatedAtTicks: new Date().getTime(),
     },
     // Rebuild pages from 17Lands data every twelve hours
@@ -57,7 +59,7 @@ const Page = ({
   lastUpdatedAtTicks,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  const [selectedSet, setSelectedSet] = useState(MagicSet.CRIMSON_VOW);
+  const [selectedSet, setSelectedSet] = useState(MagicSet.NEON_DYNASTY);
   const [selectedGrades, setSelectedGrades] = useState(grades);
   const [loading, setLoading] = useState(false);
   const [visibleRarities, setVisibleRarities] = useState(

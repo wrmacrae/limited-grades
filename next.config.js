@@ -6,7 +6,7 @@ module.exports = {
     return [
       {
         source: "/",
-        destination: "/Original",
+        destination: "/Chord",
         permanent: false,
       },
       {

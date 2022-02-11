@@ -1,9 +1,9 @@
 import { Column, MagicSet } from "lib/types";
 
-export const LATEST_SET = MagicSet.CRIMSON_VOW;
+export const LATEST_SET = MagicSet.NEON_DYNASTY;
 
 export const SET_LABELS: Record<MagicSet, string> = {
-  [MagicSet.CRIMSON_VOW]: "Crimson Vow",
+  [MagicSet.NEON_DYNASTY]: "Neon Dynasty",
 };
 
 export const COLUMN_ICONS: Record<Column, string> = {

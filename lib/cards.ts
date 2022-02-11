@@ -10,14 +10,18 @@ import {
   connect as connectToCache,
   IS_ENABLED as CACHE_IS_ENABLED,
 } from "lib/cache";
-import Original from 'grades/originalgrades.json';
-import Shifted from 'grades/shiftedgrades.json';
-import Current from 'grades/currentgrades.json';
+import Chord from 'grades/Chord.json';
+import Ncaa from 'grades/Ncaa.json';
+import Doubleexposure from 'grades/Doubleexposure.json';
+import Squerp from 'grades/Squerp.json';
+import ElgraNorbe from 'grades/ElgraNorbe.json';
 
 const GradesMap = {
-  "Original": Original,
-  "Shifted": Shifted,
-  "Current": Current,
+  "Chord": Chord,
+  "Ncaa": Ncaa,
+  "Doubleexposure": Doubleexposure,
+  "Squerp": Squerp,
+  "ElgraNorbe": ElgraNorbe,
 }
 
 interface ApiCard {

@@ -8,7 +8,7 @@ import Select, {
 import FilterLabel from "components/FilterLabel";
 
 type GradeOption = { value: string; label: string };
-const GradeOptions = ["Original", "Shifted", "Current"];
+const GradeOptions = ["Chord", "Doubleexposure", "Ncaa", "Squerp", "ElgraNorbe"];
 
 const SingleValue = ({
   children,

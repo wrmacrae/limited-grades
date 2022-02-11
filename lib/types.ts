@@ -1,5 +1,5 @@
 export enum MagicSet {
-  CRIMSON_VOW = "vow",
+  NEON_DYNASTY = "neo",
 }
 
 export enum Column {
