@@ -117,7 +117,7 @@ async function buildCardStore(set: MagicSet, grades: string): Promise<Card[]> {
       const cardName = apiCard.name.replace("///", "//");
       const guessedGradeInfo = find(
         GradesMap[grades],
-        (guess) => guess.name === cardName
+        (guess) => guess.name.split(" //")[0] === cardName
       ) || {"tier" : "C"};
       let guessedGrade: Grade = guessedGradeInfo.tier as Grade;
       if (guessedGrade == ("SB" as Grade) || guessedGrade == ("TBD" as Grade)) {
