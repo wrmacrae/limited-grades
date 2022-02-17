@@ -1,21 +1,7 @@
-import styled from "styled-components";
+import { FC } from "react";
 
-import { CardType } from "../lib/types";
-
-const CardTypeIcon = styled.i`
-  cursor: pointer;
-  opacity: 90%;
-  width: 1.28571429em;
-  text-align: center;
-`;
-
-const HiddenInput = styled.input`
-  display: none;
-
-  :not(:checked) + i {
-    opacity: 30%;
-  }
-`;
+import FilterLabel from "components/FilterLabel";
+import { CardType } from "lib/types";
 
 const FILTERS = [
   {
@@ -29,7 +15,7 @@ const FILTERS = [
     icon: "ms ms-2x ms-instant",
   },
   {
-    label: "other permanents",
+    label: "artifacts, enchantments, and planeswalkers",
     values: [CardType.ARTIFACT, CardType.ENCHANTMENT, CardType.PLANESWALKER],
     icon: "ms ms-2x ms-enchantment",
   },
@@ -45,37 +31,43 @@ interface Props {
   setValues: (cardTypes: Set<CardType>) => void;
 }
 
-const CardTypeFilter = (props: Props) => {
-  const { values, setValues } = props;
-
+const CardTypeFilter: FC<Props> = ({ values, setValues }) => {
   return (
     <div>
-      {FILTERS.map((filter, index) => {
-        const checked = filter.values.every((cardType) => values.has(cardType));
-        return (
-          <label key={index}>
-            <HiddenInput
-              type="checkbox"
-              checked={checked}
-              onChange={() => {
-                const newValues = new Set(values);
-                for (const cardType of filter.values) {
-                  if (newValues.has(cardType)) {
-                    newValues.delete(cardType);
-                  } else {
-                    newValues.add(cardType);
+      <FilterLabel>Type</FilterLabel>
+      <div>
+        {FILTERS.map((filter, index) => {
+          const checked = filter.values.every((cardType) =>
+            values.has(cardType)
+          );
+          return (
+            <label key={index}>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => {
+                  const newValues = new Set(values);
+                  for (const cardType of filter.values) {
+                    if (newValues.has(cardType)) {
+                      newValues.delete(cardType);
+                    } else {
+                      newValues.add(cardType);
+                    }
                   }
+                  setValues(newValues);
+                }}
+                className="peer hidden"
+              ></input>
+              <i
+                title={
+                  checked ? `Hide ${filter.label}` : `Show ${filter.label}`
                 }
-                setValues(newValues);
-              }}
-            ></HiddenInput>
-            <CardTypeIcon
-              title={checked ? `Hide ${filter.label}` : `Show ${filter.label}`}
-              className={filter.icon}
-            />
-          </label>
-        );
-      })}
+                className={`${filter.icon} cursor-pointer opacity-30 peer-checked:opacity-90 w-[1.28571429em] text-center`}
+              />
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -1,83 +1,40 @@
 import { sortBy } from "lodash";
-import { Col, Modal, Row, Table } from "react-bootstrap";
+import { FC } from "react";
 
-import { COLUMN_ICONS, DECK_COLORS, DECK_LABELS } from "../lib/constants";
-import { Card, Deck } from "../lib/types";
+import Modal from "components/Modal";
+import { COLUMN_ICONS } from "lib/constants";
+import { Card } from "lib/types";
 
 interface Props {
   card: Card | undefined;
-  handleClose: () => void;
+  onClose: () => void;
 }
 
-const CardDetailModal = (props: Props) => {
-  const { card, handleClose } = props;
-
+const CardDetailModal: FC<Props> = ({ card, onClose }) => {
   if (!card) {
     return null;
   }
 
   return (
-    <Modal
-      show={card}
-      onHide={handleClose}
-      size="lg"
-      centered
-      animation={false}
-    >
-      <Modal.Header className="text-center" closeButton>
-        <Modal.Title>{card.name}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Row>
-          <Col md="auto" className="align-self-center">
-            <img src={card.cardUrl} alt={card.name} width="240" height="340" />
-          </Col>
-          <Col>
-            <Table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Win Rate</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortBy(
-                  Object.entries(card.stats),
-                  ([deck, stats]) => -stats.gameCount
-                ).map(([deck, stats]) => {
-                  const deckColors = DECK_COLORS[deck as Deck];
-                  return (
-                    <tr key={deck}>
-                      <th>
-                        {deckColors.length > 0 ? (
-                          <>
-                            {deckColors.map((column) => (
-                              <i
-                                key={column}
-                                className={COLUMN_ICONS[column]}
-                              />
-                            ))}
-                          </>
-                        ) : (
-                          DECK_LABELS[deck as Deck]
-                        )}
-                      </th>
-                      <td>
-                        {Number(stats.winrate).toLocaleString(undefined, {
-                          style: "percent",
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                      <td>{stats.grade}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Modal.Body>
+    <Modal title={card.name} onClose={onClose}>
+      <div className="sm:flex sm:gap-6">
+        <img
+          src={card.cardUrl}
+          alt={card.name}
+          width="240"
+          height="340"
+          className="sm:self-center"
+        />
+        <table className="sm:flex-grow sm:self-start">
+          <thead>
+            <tr className="border-b-2 border-zinc-800">
+              <th className="p-2"></th>
+              <th className="p-2 text-left">Win Rate</th>
+              <th className="p-2 text-left">Grade</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </Modal>
   );
 };

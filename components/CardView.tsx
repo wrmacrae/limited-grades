@@ -1,49 +1,26 @@
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import styled from "styled-components";
-import { Card, Rarity } from "../lib/types";
+import { FC } from "react";
 
-const CardText = styled.span`
-  cursor: pointer;
-`;
-
-const CustomTooltip = styled(Tooltip)`
-  @media only screen and (max-width: 1366px) {
-    display: none;
-  }
-`;
-
-const CARD_TEXT_BY_RARITY = {
-  [Rarity.COMMON]: styled(CardText)`
-    color: #1a1718;
-  `,
-  [Rarity.UNCOMMON]: styled(CardText)`
-    color: #707883;
-  `,
-  [Rarity.RARE]: styled(CardText)`
-    color: #a58e4a;
-  `,
-  [Rarity.MYTHIC]: styled(CardText)`
-    color: #bf4427;
-  `,
-};
+import LazyTippy from "components/LazyTippy";
+import { Card } from "lib/types";
+import CardBubble from "components/CardBubble";
 
 interface Props {
   card: Card;
   onClick: () => void;
 }
 
-const CardView = (props: Props) => {
-  const { card, onClick } = props;
+const CardView: FC<Props> = ({ card, onClick }) => {
+  let cardView = <CardBubble card={card} onClick={onClick} />;
 
-  const CardText =
-    CARD_TEXT_BY_RARITY[card.rarity] || CARD_TEXT_BY_RARITY[Rarity.COMMON];
-
-  return (
-    <div>
-      <OverlayTrigger
-        placement="bottom-start"
-        overlay={
-          <CustomTooltip>
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover)").matches
+  ) {
+    const tooltipWidthClass = card.cardBackUrl ? `w-[480px]` : `w-[240px]`;
+    cardView = (
+      <LazyTippy
+        content={
+          <div className={`flex ${tooltipWidthClass}`}>
             <img src={card.cardUrl} alt={card.name} width="240" height="340" />
             {card.cardBackUrl && (
               <img
@@ -53,13 +30,16 @@ const CardView = (props: Props) => {
                 height="340"
               />
             )}
-          </CustomTooltip>
+          </div>
         }
+        placement="bottom-start"
       >
-        <CardText onClick={onClick}>{card.name}</CardText>
-      </OverlayTrigger>
-    </div>
-  );
+        {cardView}
+      </LazyTippy>
+    );
+  }
+
+  return cardView;
 };
 
 export default CardView;

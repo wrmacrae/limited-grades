@@ -1,69 +1,12 @@
-/* Boostrap override */
-.tooltip-inner {
-  max-width: none !important;
-  padding: 0 !important;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tippy overrides */
+.tippy-box {
+  @apply max-w-none !important;
 }
 
-/* Github corner */
-.github-corner:hover .octo-arm {
-  animation: octocat-wave 560ms ease-in-out;
-}
-
-@keyframes octocat-wave {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  20% {
-    transform: rotate(-25deg);
-  }
-
-  40% {
-    transform: rotate(10deg);
-  }
-
-  60% {
-    transform: rotate(-25deg);
-  }
-
-  80% {
-    transform: rotate(10deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-@media (max-width: 500px) {
-  .github-corner:hover .octo-arm {
-    animation: none;
-  }
-
-  .github-corner .octo-arm {
-    animation: octocat-wave 560ms ease-in-out;
-  }
-}
-
-/* Shape divider */
-.shape-divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
-
-.shape-divider svg {
-  position: relative;
-  display: block;
-  width: calc(165% + 1.3px);
-  height: 61px;
-  transform: rotateY(180deg);
-}
-
-.shape-divider .shape-fill {
-  fill: #ffffff;
+.tippy-content {
+  @apply p-0 !important;
 }

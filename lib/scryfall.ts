@@ -1,6 +1,8 @@
 import { readFile } from "fs/promises";
 import { upperFirst } from "lodash";
-import { CardType, Column } from "./types";
+import path from "path";
+
+import { CardType, Column } from "lib/types";
 
 interface ScryfallCard {
   name: string;
@@ -29,11 +31,18 @@ let CARD_INDEX: Map<string, ScryfallCard> | undefined;
 
 async function buildIndex() {
   if (!CARD_INDEX) {
+    const scryfallFilePath = path.join(
+      process.cwd(),
+      "data",
+      "oracle-cards.json"
+    );
+    console.log(`Reading Scryfall data from ${scryfallFilePath}`);
+
     CARD_INDEX = new Map();
     for (const card of JSON.parse(
-      await readFile("./data/oracle-cards.json", "utf8")
+      await readFile(scryfallFilePath, "utf8")
     ) as ScryfallCard[]) {
-      if (card.layout === "art_series") {
+      if (card.layout === "art_series" || card.layout === "token") {
         continue;
       }
 

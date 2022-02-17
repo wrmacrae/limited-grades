@@ -1,42 +1,5 @@
 export enum MagicSet {
-  CRIMSON_VOW = "vow",
-  MIDNIGHT_HUNT = "mid",
-  FORGOTTEN_REALM = "afr",
-  STRIXHAVEN = "stx",
-  KALDHEIM = "khm",
-  ZENDIKAR = "znr",
-  IKORIA = "iko",
-  WAR_OF_THE_SPARK = "war",
-  RAVNICA_ALLEGIANCE = "rna",
-  GUILDS_OF_RAVNICA = "grn",
-  DOMINARIA = "dom",
-  AMONKHET = "akr",
-  KALADESH = "klr",
-}
-
-export enum Deck {
-  ALL = "all",
-  WHITE_BLUE = "wu",
-  BLUE_BLACK = "ub",
-  BLACK_RED = "br",
-  RED_GREEN = "rg",
-  WHITE_GREEN = "wg",
-  WHITE_BLACK = "wb",
-  BLUE_RED = "ur",
-  BLACK_GREEN = "bg",
-  WHITE_RED = "wr",
-  BLUE_GREEN = "ug",
-}
-
-export interface ApiCard {
-  name: string;
-  drawn_improvement_win_rate: number;
-  ever_drawn_game_count: number;
-  ever_drawn_win_rate: number;
-  game_count: number;
-  rarity: Rarity | "basic";
-  url: string;
-  url_back: string;
+  NEON_DYNASTY = "neo",
 }
 
 export enum Column {
@@ -79,15 +42,12 @@ export interface Card {
   cardTypes: CardType[];
   cardUrl: string;
   cardBackUrl: string;
-  stats: Partial<Record<Deck, CardStats>>;
-}
-
-interface CardStats {
   winrate: number;
-  improvementWhenDrawn: number;
   gameCount: number;
-  score: number;
   grade: Grade;
+  guessedGrade: Grade;
+  diff: number;
+  diffSvg: string;
 }
 
 export enum CardType {
